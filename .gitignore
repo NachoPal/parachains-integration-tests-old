@@ -1,0 +1,4 @@
+.cargo
+temp
+node_modules
+.vscode
