@@ -1,14 +1,14 @@
 require('dotenv').config()
 const chai = require('chai');
 var should = require('chai').should()
-import { listenToEvent } from "../../src/common/listenToEvent";
 import { getBalance } from '../../src/common/getBalance';
 import { dmpQueue, ump } from '../../src/config/eventsEvals';
 import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
-import { eventResultParser } from "../../src/common/eventsResultParser"
-import { beforeConnectToProviders } from "../../src/common/beforeConnectToProviders";
-import { sleep } from "../../src/common/sleep";
-const { exec } = require("child_process");
+import { eventResultParser } from "../../src/common/test/eventsResultParser"
+import { beforeConnectToProviders } from "../../src/common/test/beforeConnectToProviders";
+import shouldExecuteInboundXcm from "../../src/common/test/shouldExecuteInboundXcm"
+import shouldExecuteOutboundXcm from "../../src/common/test/shouldExecuteOutboundXcm"
+import { sleep } from "../../src/common/test/sleep";
 const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));
 import getLaunchConfig from "../../src/common/getLaunchConfig";
@@ -35,29 +35,48 @@ describe('Limited Teleport Assets', () => {
     this.paraId = config.parachains[0].id
   })
 
-  describe('DMP', () => {
+  describe('DMP', async () => {
     it(
-      'should execute successfuly the Outbound XCM in the Relay Chain', 
-      function(done) {
-        exec(
-          `yarn dev dmp local teleport-asset -s ${SENDER_RELAY} -p ${this.paraId} -b ${RECEIVER_PARA} -a ${AMOUNT} -f ${ASSET_ID}`, 
-          (error, stdout, stderr) => {
-            if (stdout) {
-              console.log(stdout)
-              let result = eventResultParser(stdout)
-              chai.assert.equal(result, OK)
-              done()
-            }
-        });  
-    });
+      'should execute successfuly the Outbound XCM in the Relay Chain and the Inbound XCM in the Parachain', 
+      async function() {
+        let results = await Promise.all([
+          shouldExecuteOutboundXcm(
+            `yarn dev dmp local teleport-asset -s ${SENDER_RELAY} -p ${this.paraId} -b ${RECEIVER_PARA} -a ${AMOUNT} -f ${ASSET_ID}`
+          ), 
+          shouldExecuteInboundXcm(this.paraSourceApi, dmpQueue.ExecuteDownward)
+        ])
 
-    it('should execute successfuly the Inbound XCM in the Parachain', async function() {
-      let result = await listenToEvent(this.paraSourceApi, dmpQueue.ExecuteDownward)
-      console.log(result)
-      chai.assert.equal(eventResultParser(result), OK)
-    });
+        results.forEach(({ result, type }) => {
+          if (type === 'outbound') {
+            chai.assert.equal(eventResultParser(result), OK)
+          } else if (type === 'inbound') {
+            chai.assert.equal(eventResultParser(result), OK)
+          }
+        })
+      });
+    //   function(done) {
+    //     exec(
+    //       `yarn dev dmp local teleport-asset -s ${SENDER_RELAY} -p ${this.paraId} -b ${RECEIVER_PARA} -a ${AMOUNT} -f ${ASSET_ID}`, 
+    //       (error, stdout, stderr) => {
+    //         if (stdout) {
+    //           console.log(stdout)
+    //           let result = eventResultParser(stdout)
+    //           chai.assert.equal(result, OK)
+    //           done()
+    //         }
+    //     });  
+    // });
+
+    // it('should execute successfuly the Inbound XCM in the Parachain', async function() {
+    //   let result = await listenToEvent(this.paraSourceApi, dmpQueue.ExecuteDownward)
+    //   console.log(result)
+    //   chai.assert.equal(eventResultParser(result), OK)
+    // });
 
     it('should decrease balance in sender Relay Chain account equal or greater than amount', async function() {
+      // We make sure the balance is updated before testing
+      await sleep(MS_WAIT_FOR_UPDATE)
+
       let newBalance = await getBalance(this.relaySourceApi, this.senderRelay.address)
       let expectedBalance = this.senderRelayBalance.toBn().sub(new BN(AMOUNT))
       
@@ -74,29 +93,48 @@ describe('Limited Teleport Assets', () => {
     })
   });
 
-  describe('UMP', () => {
+  describe('UMP', async () => {
     it(
-      'should execute successfuly the Outbound XCM in the Parachain', 
-      function(done) {
-        let a = exec(
-          `yarn dev ump local teleport-asset -s ${SENDER_PARA} -p ${this.paraId} -b ${RECEIVER_RELAY} -a ${AMOUNT} -f ${ASSET_ID}`, 
-          (error, stdout, stderr) => {
-            if (stdout) {
-              console.log(stdout)
-              let result = eventResultParser(stdout)
-              chai.assert.equal(result, OK)
-              done()
-            }
-        });  
-    })
+      'should execute successfuly the Outbound XCM in the Parachain & the Inbound XCM in the Relay Chain',
+      async function() {
+        let results = await Promise.all([
+          shouldExecuteOutboundXcm(
+            `yarn dev ump local teleport-asset -s ${SENDER_PARA} -p ${this.paraId} -b ${RECEIVER_RELAY} -a ${AMOUNT} -f ${ASSET_ID}`
+          ), 
+          shouldExecuteInboundXcm(this.relaySourceApi, ump.ExecutedUpward)
+        ])
+
+        results.forEach(({ result, type }) => {
+          if (type === 'outbound') {
+            chai.assert.equal(eventResultParser(result), OK)
+          } else if (type === 'inbound') {
+            chai.assert.equal(eventResultParser(result), OK)
+          }
+        })
+      });
+    //   function(done) {
+    //     let a = exec(
+    //       `yarn dev ump local teleport-asset -s ${SENDER_PARA} -p ${this.paraId} -b ${RECEIVER_RELAY} -a ${AMOUNT} -f ${ASSET_ID}`, 
+    //       (error, stdout, stderr) => {
+    //         if (stdout) {
+    //           console.log(stdout)
+    //           let result = eventResultParser(stdout)
+    //           chai.assert.equal(result, OK)
+    //           done()
+    //         }
+    //     });  
+    // })
     
-    it('should execute successfuly the Inbound XCM in the Relay Chain', async function() {
-      let result = await listenToEvent(this.relaySourceApi, ump.ExecutedUpward)
-      console.log(result)
-      chai.assert.equal(eventResultParser(result), OK)
-    });
+    // it('should execute successfuly the Inbound XCM in the Relay Chain', async function() {
+    //   let result = await listenToEvent(this.relaySourceApi, ump.ExecutedUpward)
+    //   console.log(result)
+    //   chai.assert.equal(eventResultParser(result), OK)
+    // });
 
     it('should decrease balance in sender Parachain account equal or greater than amount', async function() {
+      // We make sure the balance is updated before testing
+      await sleep(MS_WAIT_FOR_UPDATE)
+
       let newBalance = await getBalance(this.paraSourceApi, this.senderPara.address)
       let expectedBalance = this.senderRelayBalance.toBn().sub(new BN(AMOUNT))
       

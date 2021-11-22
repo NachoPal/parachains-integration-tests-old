@@ -1,4 +1,4 @@
-import { EVENT_LISTENER_TIMEOUT } from "../config/constants";
+import { EVENT_LISTENER_TIMEOUT } from "../../config/constants";
 
 export const listenToEvent = async (api, eventEval, callback = ()=>{}) => {
   let evaluator = new eventEval()

@@ -1,8 +1,8 @@
-import connectToRelayChains from './connectToRelayChains';
-import { getApisFromRelays } from './getApisFromRelays';
-import { getBalance } from './getBalance';
-import getWallet from './getWallet';
-import getLaunchConfig from './getLaunchConfig';
+import connectToRelayChains from '../connectToRelayChains';
+import { getApisFromRelays } from '../getApisFromRelays';
+import { getBalance } from '../getBalance';
+import getWallet from '../getWallet';
+import getLaunchConfig from '../getLaunchConfig';
 
 export const beforeConnectToProviders = (
     { relay: { senderRelay, receiverRelay }, para: { senderPara, receiverPara }}

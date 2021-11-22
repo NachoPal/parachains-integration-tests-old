@@ -1,8 +1,8 @@
 require('dotenv').config()
 const chai = require('chai');
 import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
-import { eventResultParser } from "../../src/common/eventsResultParser"
-import { beforeConnectToProviders } from "../../src/common/beforeConnectToProviders";
+import { eventResultParser } from "../../src/common/test/eventsResultParser"
+import { beforeConnectToProviders } from "../../src/common/test/beforeConnectToProviders";
 const { exec } = require("child_process");
 const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));

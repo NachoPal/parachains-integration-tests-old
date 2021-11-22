@@ -2,8 +2,8 @@ require('dotenv').config()
 const chai = require('chai');
 var should = require('chai').should()
 import { OK } from '../../src/config/constants'
-import { eventResultParser } from "../../src/common/eventsResultParser"
-import { beforeConnectToProviders } from "../../src/common/beforeConnectToProviders";
+import { eventResultParser } from "../../src/common/test/eventsResultParser"
+import { beforeConnectToProviders } from "../../src/common/test/beforeConnectToProviders";
 const { exec } = require("child_process");
 const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));
