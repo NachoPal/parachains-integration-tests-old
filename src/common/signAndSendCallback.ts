@@ -1,7 +1,6 @@
 export const signAndSendCallback = (eventEvals) => 
   ({ events = [], status }) => {
     eventEvals.forEach(({ eventEval, callback }) => {
-      // const { eventEval, callback } = eventEvalObj
       let evaluator = new eventEval()
       const { name, lookupName, lookupIndex } = evaluator
       

@@ -6,11 +6,10 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { uniques } from '../../config/eventsEvals';
+import { uniques } from '../../config';
 
 const createUnique = async ({ api, id, admin, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let adminObj = { Id: admin.address }
 
   let eventEval = { eventEval: uniques.Created, callback: () => { process.exit(0) }}

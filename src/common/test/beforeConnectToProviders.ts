@@ -1,4 +1,3 @@
-// import connectToProviders from '../connectToProviders';
 import {
   connectToProviders,
   getWallet,

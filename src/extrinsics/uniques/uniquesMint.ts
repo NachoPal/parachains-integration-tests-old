@@ -6,11 +6,10 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { uniques } from '../../config/eventsEvals';
+import { uniques } from '../../config';
 
 const mintUnique = async ({ api, id, instance, owner, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let ownerObj = { Id: owner.address }
 
   let eventEval = { eventEval: uniques.Issued, callback: () => { process.exit(0) }}

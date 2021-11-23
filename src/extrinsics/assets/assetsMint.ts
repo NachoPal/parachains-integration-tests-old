@@ -6,14 +6,12 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { assets } from '../../config/eventsEvals';
+import { assets } from '../../config';
 
 
 const mintAsset = async ({ api, id, beneficiary, amount, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let beneficiaryObj = { Id: beneficiary.address }
-
   let eventEval = { eventEval: assets.Issued, callback: () => { process.exit(0) }}
 
   await api.tx.assets.mint(id, beneficiaryObj, amount)

@@ -6,7 +6,7 @@ import {
 } from '../../common';
 import { Xcm, BridgeData } from '../../interfaces/xcmData';
 import { hexToU8a, compactAddLength } from '@polkadot/util';
-import { xcmPallet, polkadotXcm, sudo } from '../../config/eventsEvals';
+import { xcmPallet, polkadotXcm, sudo } from '../../config';
 
 export const sendXcm = async ({ relayChains, paraChains }, xcm: Xcm, isLocal) => {
   switch (xcm.message.type) {
@@ -33,7 +33,6 @@ export const sendXcm = async ({ relayChains, paraChains }, xcm: Xcm, isLocal) =>
       let chains = relayChains
       let palletName = 'xcmPallet';
       let parents = 0
-      // let eventEval = xcmPallet.Sent
       let eventEvalSudo = { eventEval: sudo.Sudid, callback: () => {} }
       let eventEvalSent = { eventEval: xcmPallet.Sent, callback: () => { process.exit(0) }}
 

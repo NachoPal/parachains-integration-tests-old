@@ -5,8 +5,12 @@ import {
   getBalance,
   getLaunchConfig
 } from '../../src/common';
-import { dmpQueue, ump } from '../../src/config/eventsEvals';
-import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
+import { 
+  dmpQueue,
+  ump,
+  OK, 
+  MS_WAIT_FOR_UPDATE 
+} from '../../src/config'
 import { 
   eventResultParser,
   beforeConnectToProviders,

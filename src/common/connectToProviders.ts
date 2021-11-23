@@ -1,13 +1,15 @@
-import { substrateProviders } from '../config'
-import { getConnections } from './getConnections'
-// import { getAccountsInformation, loadAccounts } from './getAccounts'
+import { 
+  getProviderInfo,
+  getConnections
+} from './index';
+// import { getAccountsInformation, loadAccounts } from './index'
 
 
 export const connectToProviders = async (sourceChainPort, targetChainPort) => {
   const [
     connectionDetails1, 
     connectionDetails2
-  ] = substrateProviders(sourceChainPort, targetChainPort);
+  ] = getProviderInfo(sourceChainPort, targetChainPort);
   const { connections } = await getConnections([connectionDetails1, connectionDetails2]);
   const { sourceChain, targetChain } = connections;
 

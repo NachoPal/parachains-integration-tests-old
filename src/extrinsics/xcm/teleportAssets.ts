@@ -5,7 +5,7 @@ import {
   signAndSendCallback
 } from '../../common';
 import { BridgeData, Xcm } from '../../interfaces/xcmData';
-import { xcmPallet, polkadotXcm } from '../../config/eventsEvals';
+import { xcmPallet, polkadotXcm } from '../../config';
 
 export const teleportAsset = async ({ relayChains, paraChains }, xcm: Xcm, isLocal) => {
   switch (xcm.message.type) {

@@ -6,14 +6,12 @@ import {
   getWallet,
   signAndSendCallback
 } from '../../common';
-import { assets } from '../../config/eventsEvals';
+import { assets } from '../../config';
 
 
 const createAsset = async ({ api, id, admin, minBalance, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let adminObj = { Id: admin.address }
-
   let eventEval = { eventEval: assets.Created, callback: () => { process.exit(0) }}
 
   await api.tx.assets.create(id, adminObj, minBalance)

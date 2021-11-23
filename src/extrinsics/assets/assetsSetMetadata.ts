@@ -6,13 +6,10 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { assets } from '../../config/eventsEvals';
+import { assets } from '../../config';
 
 const setMetadataAsset = async ({ api, id, name, symbol, decimals, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
-  // let adminObj = { Id: admin.address }
-
   let eventEval = { eventEval: assets.MetadataSet, callback: () => { process.exit(0) }}
 
   await api.tx.assets.setMetadata(id, name, symbol, decimals)

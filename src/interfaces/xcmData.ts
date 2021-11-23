@@ -1,10 +1,6 @@
-import { AccountData, AccountId32, AccountInfo } from "@polkadot/types/interfaces";
-import { KeyringPair } from "@polkadot/keyring/types";
-
 type XcmMessage = TeleportData | TransactData
 
 export interface Xcm {
-  // destination?: Object,
   message: XcmMessage,
   bridgeData: BridgeData
 }
@@ -34,10 +30,6 @@ export type TransactData = {
   requireWeightAtMost: string,
   encodedCall: string
 }
-
-// export type SourceAccount = "SourceAccount"
-// export type TargetAccount = "TargetAccount"
-// export type RootAccount = "RootAccount"
 
 export type BridgeOrigin = {
   type: "SourceAccount" | "TargetAccount" | "SourceRoot"

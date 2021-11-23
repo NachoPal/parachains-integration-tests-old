@@ -1,4 +1,4 @@
-import { OK, FAIL } from './constants'
+import { OK, FAIL } from './index'
 
 export const sudo = {
   Sudid: class Event {
@@ -48,7 +48,6 @@ export const assets = {
 
     check(data, callback = ()=>{}) {
       let reason = data.toHuman()
-      // let reason = data.toJSON()
 
       process.stdout.write(`${OK}-${this.name}-name: ${reason}\n`, () => {
         callback(); 
@@ -127,7 +126,6 @@ export const uniques = {
 
     check(data, callback = ()=>{}) {
       let reason = data.toHuman()
-      // let reason = data.toJSON()
 
       process.stdout.write(`${OK}-${this.name}-name: ${reason}\n`, () => {
         callback(); 
@@ -192,7 +190,6 @@ export const xcmPallet = {
 
     check(data, callback = ()=>{}) {
       let reason = data.toString()
-      // let result = data.isComplete ? OK : FAIL
 
       process.stdout.write(`${OK}-${this.name}-${reason}\n`, () => {
         callback(); 
@@ -227,7 +224,6 @@ export const polkadotXcm = {
 
     check(data, callback = ()=>{}) {
       let reason = data.toString()
-      // let result = data.isComplete ? OK : FAIL
 
       process.stdout.write(`${OK}-${this.name}-${reason}\n`, () => {
         callback(); 

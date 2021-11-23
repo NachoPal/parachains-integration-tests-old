@@ -6,14 +6,12 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { sudo, assets } from '../../config/eventsEvals';
+import { sudo, assets } from '../../config';
 
 
 const forceCreateAsset = async ({ api, id, owner, isSufficient, minBalance, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let ownerObj = { Id: owner.address }
-
   let eventEvalSudo = { eventEval: sudo.Sudid, callback: () => {} }
   let eventEvalForceCreated = { eventEval: assets.ForceCreated, callback: () => { process.exit(0) }}
 

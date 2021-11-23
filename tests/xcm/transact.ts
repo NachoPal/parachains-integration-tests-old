@@ -7,8 +7,12 @@ import {
   getBalance,
   getLaunchConfig
 } from '../../src/common'
-import { dmpQueue, ump } from '../../src/config/eventsEvals';
-import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
+import { 
+  dmpQueue,
+  ump,
+  OK, 
+  MS_WAIT_FOR_UPDATE 
+} from '../../src/config'
 import { 
   eventResultParser,
   shouldExecuteInboundXcm,
@@ -18,8 +22,6 @@ import {
 } from "../../src/common/test"
 import { u8aToHex, numberToHex } from '@polkadot/util'
 
-
-// const PARA_ID = process.env.PARA_ID_SOURCE
 const AMOUNT = 1000000000
 const SENDER_RELAY = "//Alice"
 const RECEIVER_PARA = "//Charlie"

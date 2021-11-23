@@ -6,14 +6,12 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { uniques } from '../../config/eventsEvals';
+import { uniques } from '../../config';
 
 
 const transferUnique = async ({ api, id, instance, dest, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let destObj = { Id: dest.address }
-
   let eventEval = { eventEval: uniques.Transferred, callback: () => { process.exit(0) }}
 
   await api.tx.uniques.transfer(id, instance, destObj)

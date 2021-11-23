@@ -6,7 +6,7 @@ import {
   getLaunchConfig,
   signAndSendCallback
 } from '../../common';
-import { assets } from '../../config/eventsEvals';
+import { assets } from '../../config';
 
 const transferAsset = async ({ api, id, target, amount, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);

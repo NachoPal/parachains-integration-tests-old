@@ -1,6 +1,6 @@
 require('dotenv').config()
 const chai = require('chai');
-import { OK } from '../../src/config/constants'
+import { OK } from '../../src/config'
 import { 
   beforeConnectToProviders,
   eventResultParser
