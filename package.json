@@ -35,8 +35,8 @@
     "uniques:transfer": "node ./bin/src/extrinsics/uniques/uniquesTransfer.js",
     "dev:register-parachains": "ts-node ./src/extrinsics/registerParachains.ts",
     "register-parachains": "node ./bin/src/extrinsics/registerParachains.js",
-    "dev:init-chains": "ts-node ./src/extrinsics/initChains.ts",
-    "init-chains": "node ./bin/src/extrinsics/initChains.js"
+    "dev:init-chains": "ts-node ./src/extrinsics/xcm/initChains.ts",
+    "init-chains": "node ./bin/src/extrinsics/xcm/initChains.js"
   },
   "dependencies": {
     "@polkadot/api": "^6.6.1",

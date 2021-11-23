@@ -14,6 +14,7 @@ import {
 import { 
   eventResultParser,
   beforeConnectToProviders,
+  beforeInitChains,
   shouldExecuteInboundXcm,
   shouldExecuteOutboundXcm,
   sleep
@@ -26,6 +27,7 @@ const SENDER_RELAY = "//Alice"
 const RECEIVER_PARA = "//Charlie"
 const SENDER_PARA = "//Alice"
 const RECEIVER_RELAY = "//Bob"
+const SUDO = "//Alice"
 const ASSET_ID = 0
 
 describe('Limited Teleport Assets', () => {
@@ -41,6 +43,8 @@ describe('Limited Teleport Assets', () => {
     let config = getLaunchConfig()
     this.paraId = config.parachains[0].id
   })
+
+  beforeInitChains(SUDO)
 
   describe('DMP', async () => {
     it(

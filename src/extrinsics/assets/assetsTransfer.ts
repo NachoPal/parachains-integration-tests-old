@@ -10,7 +10,6 @@ import { assets } from '../../config';
 
 const transferAsset = async ({ api, id, target, amount, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
-  // console.log(u8aToHex(admin.addressRaw))
   let targetObj = { Id: target.address }
 
   let eventEval = { eventEval: assets.Transferred, callback: () => { process.exit(0) }}

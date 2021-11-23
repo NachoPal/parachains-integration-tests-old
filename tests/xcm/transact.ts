@@ -16,6 +16,7 @@ import {
 import { 
   eventResultParser,
   shouldExecuteInboundXcm,
+  beforeInitChains,
   shouldExecuteOutboundXcm,
   beforeConnectToProviders,
   sleep
@@ -30,6 +31,7 @@ const RECEIVER_RELAY = "//Bob"
 const SOVEREIGN_ACCOUNT = "5C4hrfjw9DjXZTzV3MwzrrAr9P1MJhSrvWGWqi1eSuyUpnhM"
 const REQUIRED_WEIGHT_AT_MOST = 1000000000
 const STORAGE_KEY = "0xb422898ac3ef83da3f78bdf77b08a2169a04835360230ca16c5d96970a47e370"
+const SUDO = "//Alice"
 
 describe('Send - Transact', () => {
 
@@ -44,6 +46,8 @@ describe('Send - Transact', () => {
     let config = getLaunchConfig()
     this.paraId = config.parachains[0].id
   })
+
+  beforeInitChains(SUDO)
 
   describe('DMP', () => {
     describe('Origin Type - SovereignAccount - Transfer Balance', async () => {
