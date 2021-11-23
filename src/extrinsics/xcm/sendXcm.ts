@@ -1,12 +1,12 @@
-// import commandLineArgs from 'command-line-args';
-// import connectToRelayChains from './common/connectToRelayChains';
-import { getApisFromRelays } from '../../common/getApisFromRelays';
-import getWallet from '../../common/getWallet';
-import { sendMessage } from '../../common/sendMessage';
+import { 
+  getApisFromRelays,
+  getWallet,
+  sendMessage,
+  signAndSendCallback 
+} from '../../common';
 import { Xcm, BridgeData } from '../../interfaces/xcmData';
 import { hexToU8a, compactAddLength } from '@polkadot/util';
 import { xcmPallet, polkadotXcm, sudo } from '../../config/eventsEvals';
-import { signAndSendCallback } from '../../common/signAndSendCallback';
 
 export const sendXcm = async ({ relayChains, paraChains }, xcm: Xcm, isLocal) => {
   switch (xcm.message.type) {
@@ -52,14 +52,11 @@ export const sendXcm = async ({ relayChains, paraChains }, xcm: Xcm, isLocal) =>
       let api = isLocal ? sourceApi : targetApi;
     
       const signerAccount = await getWallet(signer);
-
-      // let destination = { x1: { parachain }}
     
       let messageObj = {
         v1: { Transact: { originType, requireWeightAtMost, call: compactAddLength(hexToU8a(encodedCall))}}
       }
       let call = api.tx.sudo.sudo(api.tx[palletName].send(destination, messageObj))
-      // let call = api.tx[palletName].send(destination, messageObj)
 
       let nonce = await api.rpc.system.accountNextIndex(signerAccount.address);
 
@@ -81,9 +78,6 @@ export const sendXcm = async ({ relayChains, paraChains }, xcm: Xcm, isLocal) =>
           target: targetAccount
         }
         await sendMessage(relayChains, message)
-      }  
-    
-      // console.log(`${xcm.message.type} Sent`)
-      // process.exit(0)
+      }
   }    
 }

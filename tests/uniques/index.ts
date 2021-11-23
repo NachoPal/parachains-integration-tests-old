@@ -2,8 +2,10 @@ require('dotenv').config()
 const chai = require('chai');
 var should = require('chai').should()
 import { OK } from '../../src/config/constants'
-import { eventResultParser } from "../../src/common/test/eventsResultParser"
-import { beforeConnectToProviders } from "../../src/common/test/beforeConnectToProviders";
+import { 
+  eventResultParser,
+  beforeConnectToProviders
+} from "../../src/common/test"
 const { exec } = require("child_process");
 const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));
@@ -14,7 +16,6 @@ const SENDER_PARA = "//Alice"
 const RECEIVER_RELAY = "//Bob"
 const ADMIN = '//Charlie'
 const UNIQUE_INSTANCE = 1
-
 
 describe('Uniques', () => {
   
@@ -57,23 +58,6 @@ describe('Uniques', () => {
         });
     });
   });
-
-  // describe('Set Metadata', () => {
-  //   it(
-  //     'should set metadata',
-  //     function(done) {
-  //       exec(
-  //         `yarn dev:assets:set-metadata -i ${this.assetId} -n ${ASSET_NAME} -y ${ASSET_SYMBOL} -d ${DECIMALS} -s ${SENDER_PARA}`, 
-  //         (error, stdout, stderr) => {
-  //           if (stdout) {
-  //             console.log(stdout)
-  //             let result = eventResultParser(stdout)
-  //             chai.assert.equal(result, OK)
-  //             done()
-  //           }
-  //       });
-  //   });
-  // });
 
   describe('Mint', () => {
     it(

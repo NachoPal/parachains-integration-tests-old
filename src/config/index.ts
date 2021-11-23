@@ -1,7 +1,5 @@
 import { WsProvider } from '@polkadot/api';
 import { ApiOptions } from '@polkadot/api/types';
-import rococoTypes from './rococoTypes.json';
-import wococoTypes from './wococoTypes.json';
 
 const getProviderInfo = (providerPort: string, types: ApiOptions['types']) => {
   const hasher = null;
@@ -14,8 +12,8 @@ const getProviderInfo = (providerPort: string, types: ApiOptions['types']) => {
 };
 
 export const substrateProviders = (sourceChainPort, targetChainPort) => {
-  const sourceChain = getProviderInfo(sourceChainPort, rococoTypes);
-  const targetChain = targetChainPort ? getProviderInfo(targetChainPort, wococoTypes) : undefined;
+  const sourceChain = getProviderInfo(sourceChainPort, {});
+  const targetChain = targetChainPort ? getProviderInfo(targetChainPort, {}) : undefined;
 
   return [
     {

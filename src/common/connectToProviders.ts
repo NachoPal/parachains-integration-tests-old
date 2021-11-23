@@ -1,9 +1,9 @@
-import { getAccountsInformation, loadAccounts } from './getAccounts'
 import { substrateProviders } from '../config'
 import { getConnections } from './getConnections'
+// import { getAccountsInformation, loadAccounts } from './getAccounts'
 
 
-const connectToProviders = async (sourceChainPort, targetChainPort) => {
+export const connectToProviders = async (sourceChainPort, targetChainPort) => {
   const [
     connectionDetails1, 
     connectionDetails2
@@ -26,5 +26,3 @@ const connectToProviders = async (sourceChainPort, targetChainPort) => {
     target: { chain: targetChain }
   }
 }
-
-export default connectToProviders;

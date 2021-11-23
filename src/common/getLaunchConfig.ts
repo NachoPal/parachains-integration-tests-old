@@ -3,7 +3,7 @@ import { resolve } from "path";
 import fs from "fs";
 import { LaunchConfig } from "../interfaces/launchConfig";
 
-const getLaunchConfig = () => {
+export const getLaunchConfig = () => {
   const config_file = process.env.POLKADOT_LAUNCH_CONFIG_PATH
 
   if (!config_file) {
@@ -22,5 +22,3 @@ const getLaunchConfig = () => {
 
   return config
 }
-
-export default getLaunchConfig;

@@ -1,12 +1,12 @@
 require('dotenv').config()
 import commandLineArgs from 'command-line-args';
-import connectToRelayChains from '../../common/connectToRelayChains';
-// import { u8aToHex } from '@polkadot/util'
-import getWallet from '../../common/getWallet';
-import { signAndSendCallback } from '../../common/signAndSendCallback';
+import {
+  connectToProviders,
+  getWallet,
+  getLaunchConfig,
+  signAndSendCallback
+} from '../../common';
 import { assets } from '../../config/eventsEvals';
-import getLaunchConfig from '../../common/getLaunchConfig';
-
 
 const setMetadataAsset = async ({ api, id, name, symbol, decimals, wallet }) => {
   let nonce = await api.rpc.system.accountNextIndex(wallet.address);
@@ -37,7 +37,7 @@ const main = async () => {
   let config = getLaunchConfig()
   const paraPort = config.parachains[0].nodes[0].wsPort
 
-  const relayChain = await connectToRelayChains(paraPort, undefined);
+  const relayChain = await connectToProviders(paraPort, undefined);
 
   const data = { // source
     api: relayChain.source.chain.api,

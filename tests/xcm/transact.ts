@@ -1,18 +1,23 @@
 require('dotenv').config()
 const chai = require('chai');
 var should = require('chai').should()
-import { getBalance } from '../../src/common/getBalance';
-import { dmpQueue, ump } from '../../src/config/eventsEvals';
-import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
-import { eventResultParser } from "../../src/common/test/eventsResultParser"
-import shouldExecuteInboundXcm from "../../src/common/test/shouldExecuteInboundXcm"
-import shouldExecuteOutboundXcm from "../../src/common/test/shouldExecuteOutboundXcm"
-import { beforeConnectToProviders } from "../../src/common/test/beforeConnectToProviders";
-import { sleep } from "../../src/common/test/sleep";
-import { u8aToHex, numberToHex } from '@polkadot/util'
 const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));
-import getLaunchConfig from "../../src/common/getLaunchConfig";
+import {
+  getBalance,
+  getLaunchConfig
+} from '../../src/common'
+import { dmpQueue, ump } from '../../src/config/eventsEvals';
+import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
+import { 
+  eventResultParser,
+  shouldExecuteInboundXcm,
+  shouldExecuteOutboundXcm,
+  beforeConnectToProviders,
+  sleep
+} from "../../src/common/test"
+import { u8aToHex, numberToHex } from '@polkadot/util'
+
 
 // const PARA_ID = process.env.PARA_ID_SOURCE
 const AMOUNT = 1000000000

@@ -1,9 +1,8 @@
 import commandLineArgs from 'command-line-args';
-import connectToRelayChains from './common/connectToRelayChains';
+import { connectToProviders, getLaunchConfig } from './common';
 import { TeleportData, TransactData, Xcm, BridgeData, BridgeOrigin } from './interfaces/xcmData';
 import { teleportAsset } from './extrinsics/xcm/teleportAssets';
 import { sendXcm } from './extrinsics/xcm/sendXcm';
-import getLaunchConfig from './common/getLaunchConfig';
 
 const subCommands = async (messaging, isLocal, targetCommands, chains) => {
   let argv = targetCommands._unknown || []
@@ -140,8 +139,8 @@ const main = async () => {
   const relayPort = config.relaychain.nodes[0].wsPort
   const paraPort = config.parachains[0].nodes[0].wsPort
 
-  const relayChains = await connectToRelayChains(relayPort, undefined);
-  const paraChains = await connectToRelayChains(paraPort, undefined);
+  const relayChains = await connectToProviders(relayPort, undefined);
+  const paraChains = await connectToProviders(paraPort, undefined);
 
   let mainDefinitions = [
     { name: 'messaging', defaultOption: true },

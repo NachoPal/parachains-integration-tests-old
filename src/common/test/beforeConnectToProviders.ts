@@ -1,8 +1,11 @@
-import connectToRelayChains from '../connectToRelayChains';
-import { getApisFromRelays } from '../getApisFromRelays';
-import { getBalance } from '../getBalance';
-import getWallet from '../getWallet';
-import getLaunchConfig from '../getLaunchConfig';
+// import connectToProviders from '../connectToProviders';
+import {
+  connectToProviders,
+  getWallet,
+  getLaunchConfig,
+  getBalance,
+  getApisFromRelays
+} from '../../common';
 
 export const beforeConnectToProviders = (
     { relay: { senderRelay, receiverRelay }, para: { senderPara, receiverPara }}
@@ -16,8 +19,8 @@ export const beforeConnectToProviders = (
         const relayPort = config.relaychain.nodes[0].wsPort
         const paraPort = config.parachains[0].nodes[0].wsPort
 
-        const relayChains = await connectToRelayChains(relayPort, undefined);
-        const paraChains = await connectToRelayChains(paraPort, undefined);
+        const relayChains = await connectToProviders(relayPort, undefined);
+        const paraChains = await connectToProviders(paraPort, undefined);
       
         const { sourceApi: relaySourceApi } = getApisFromRelays(relayChains);
         const { sourceApi: paraSourceApi } = getApisFromRelays(paraChains);

@@ -1,7 +1,7 @@
 import { Keyring } from '@polkadot/api';
 import { cryptoWaitReady, decodeAddress } from '@polkadot/util-crypto';
 
-const getWallet = async (uri) => {
+export const getWallet = async (uri) => {
   if (uri.substring(0,2) === '//') {
     await cryptoWaitReady();
     const keyring = new Keyring({ type: 'sr25519' });
@@ -11,5 +11,3 @@ const getWallet = async (uri) => {
     return { address: uri, addressRaw: decodeAddress(uri)}
   }
 }
-
-export default getWallet;

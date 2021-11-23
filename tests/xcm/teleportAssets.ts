@@ -1,19 +1,22 @@
 require('dotenv').config()
 const chai = require('chai');
 var should = require('chai').should()
-import { getBalance } from '../../src/common/getBalance';
+import { 
+  getBalance,
+  getLaunchConfig
+} from '../../src/common';
 import { dmpQueue, ump } from '../../src/config/eventsEvals';
 import { OK, MS_WAIT_FOR_UPDATE } from '../../src/config/constants'
-import { eventResultParser } from "../../src/common/test/eventsResultParser"
-import { beforeConnectToProviders } from "../../src/common/test/beforeConnectToProviders";
-import shouldExecuteInboundXcm from "../../src/common/test/shouldExecuteInboundXcm"
-import shouldExecuteOutboundXcm from "../../src/common/test/shouldExecuteOutboundXcm"
-import { sleep } from "../../src/common/test/sleep";
+import { 
+  eventResultParser,
+  beforeConnectToProviders,
+  shouldExecuteInboundXcm,
+  shouldExecuteOutboundXcm,
+  sleep
+} from "../../src/common/test"
 const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));
-import getLaunchConfig from "../../src/common/getLaunchConfig";
 
-// const PARA_ID = process.env.PARA_ID_SOURCE
 const AMOUNT = 1000000000000
 const SENDER_RELAY = "//Alice"
 const RECEIVER_PARA = "//Charlie"
@@ -54,24 +57,6 @@ describe('Limited Teleport Assets', () => {
           }
         })
       });
-    //   function(done) {
-    //     exec(
-    //       `yarn dev dmp local teleport-asset -s ${SENDER_RELAY} -p ${this.paraId} -b ${RECEIVER_PARA} -a ${AMOUNT} -f ${ASSET_ID}`, 
-    //       (error, stdout, stderr) => {
-    //         if (stdout) {
-    //           console.log(stdout)
-    //           let result = eventResultParser(stdout)
-    //           chai.assert.equal(result, OK)
-    //           done()
-    //         }
-    //     });  
-    // });
-
-    // it('should execute successfuly the Inbound XCM in the Parachain', async function() {
-    //   let result = await listenToEvent(this.paraSourceApi, dmpQueue.ExecuteDownward)
-    //   console.log(result)
-    //   chai.assert.equal(eventResultParser(result), OK)
-    // });
 
     it('should decrease balance in sender Relay Chain account equal or greater than amount', async function() {
       // We make sure the balance is updated before testing
@@ -112,24 +97,6 @@ describe('Limited Teleport Assets', () => {
           }
         })
       });
-    //   function(done) {
-    //     let a = exec(
-    //       `yarn dev ump local teleport-asset -s ${SENDER_PARA} -p ${this.paraId} -b ${RECEIVER_RELAY} -a ${AMOUNT} -f ${ASSET_ID}`, 
-    //       (error, stdout, stderr) => {
-    //         if (stdout) {
-    //           console.log(stdout)
-    //           let result = eventResultParser(stdout)
-    //           chai.assert.equal(result, OK)
-    //           done()
-    //         }
-    //     });  
-    // })
-    
-    // it('should execute successfuly the Inbound XCM in the Relay Chain', async function() {
-    //   let result = await listenToEvent(this.relaySourceApi, ump.ExecutedUpward)
-    //   console.log(result)
-    //   chai.assert.equal(eventResultParser(result), OK)
-    // });
 
     it('should decrease balance in sender Parachain account equal or greater than amount', async function() {
       // We make sure the balance is updated before testing

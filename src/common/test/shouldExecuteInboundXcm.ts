@@ -1,12 +1,9 @@
-import { listenToEvent } from "./listenToEvent";
-import { eventResultParser } from "./eventsResultParser"
+import { listenToEvent } from "./index";
 
-const shouldExecuteInboundXcm = async (api, eventEval): Promise<{ type: any, result: any }> => {
+export const shouldExecuteInboundXcm = async (api, eventEval): Promise<{ type: any, result: any }> => {
   return new Promise(async resolve => {
     let result = await listenToEvent(api, eventEval)
     console.log(result)
     resolve({type: 'inbound', result })
   })
 }
-
-export default shouldExecuteInboundXcm
