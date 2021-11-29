@@ -57,7 +57,7 @@ describe('Send - Transact', () => {
 
         await this.paraSourceApi.tx.balances.transfer(
           SOVEREIGN_ACCOUNT,
-          AMOUNT
+          AMOUNT * 2
           ).signAndSend(this.senderRelay, { nonce }, async ({ events = [], status }) => {
             if (status.isInBlock) {
               this.sovereignAccountBalance = await getBalance(this.paraSourceApi, SOVEREIGN_ACCOUNT)
@@ -67,6 +67,8 @@ describe('Send - Transact', () => {
         // Call to be dispatch in the Parachain -> Transfer AMOUNT Balance to SENDER_PARA
         let call = this.paraSourceApi.tx.balances.transfer(this.receiverPara.address, AMOUNT)
         this.encodedCall = u8aToHex((await call).toU8a().slice(2))
+        // We make sure the balance is updated before testing
+        await sleep(MS_WAIT_FOR_UPDATE)
       })
 
       it(

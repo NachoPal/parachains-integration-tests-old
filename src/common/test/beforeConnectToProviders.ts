@@ -6,10 +6,23 @@ import {
   getApisFromRelays
 } from '../../common';
 
+const waitForParachainToProduceBlocks = async (api): Promise<void> => {
+  return new Promise(async resolve => {
+    const unsubHeads = await api.rpc.chain.subscribeNewHeads((lastHeader) => {
+      if (lastHeader.number >= 1) {
+        unsubHeads();
+        resolve()
+      } else {
+        console.log("Waiting for the Parachain to produce blocks...")
+      }
+    });
+  })
+}
+
 export const beforeConnectToProviders = (
     { relay: { senderRelay, receiverRelay }, para: { senderPara, receiverPara }}
   ) => {
-    let config = getLaunchConfig()
+    // let config = getLaunchConfig()
 
     return(
       before(async function() {
@@ -26,6 +39,8 @@ export const beforeConnectToProviders = (
       
         this.paraSourceApi = paraSourceApi
         this.relaySourceApi = relaySourceApi
+
+        await waitForParachainToProduceBlocks(this.paraSourceApi)
 
         this.senderRelay = await getWallet(senderRelay)
         this.receiverRelay = await getWallet(receiverRelay)

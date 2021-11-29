@@ -9,6 +9,8 @@
     "start": "node ./bin/index.js",
     "dev": "ts-node ./src/index.ts",
     "dmp": "ts-node ./src/index.ts dmp",
+    "polkadot-launch": "./node_modules/.bin/polkadot-launch config.json",
+    "polkadot-launch:test": "yarn polkadot-launch & yarn test",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --timeout 100000 -r ts-node/register 'tests/*/*.ts'",
     "test:xcm": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --timeout 100000 -r ts-node/register 'tests/xcm/*.ts'",
     "test:xcm:limited-teleport-asset": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --timeout 100000 -r ts-node/register 'tests/xcm/teleportAssets.ts'",
@@ -39,12 +41,11 @@
     "init-chains": "node ./bin/src/extrinsics/initChains.js"
   },
   "dependencies": {
-    "@polkadot/api": "^6.6.1",
-    "@polkadot/ui-keyring": "^0.85.3",
     "@types/node": "^16.7.10",
     "bn.js": "^5.2.0",
     "command-line-args": "^5.2.0",
     "dotenv": "^10.0.0",
+    "polkadot-launch": "^1.9.0",
     "typescript": "^4.4.2"
   },
   "devDependencies": {

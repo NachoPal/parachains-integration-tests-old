@@ -1,5 +1,5 @@
 # Introduction
-The goal of this repository is to provide **Integraton Tests** for the **Common & System Parachains** in the Polkadot ecosystem. The tests are expected to be run against a _Parachain<>Relaychain_ local deployment using [Polkadot Launch](https://github.com/paritytech/polkadot-launch).
+The goal of this repository is to provide **Integraton Tests** for the **Common & System Parachains** in the Polkadot ecosystem. The tests are run against a locally deployed _Parachain<>Relaychain_  infra using [Polkadot Launch](https://github.com/paritytech/polkadot-launch).
 
 A CLI (which the tests make use of) is also available to interact directly with the chains.
 
@@ -16,29 +16,19 @@ For example: `release-westmint-v6-westend-v0.9.13` is telling us that:
 
 releases were used to build the binaries that `polkadot-launch` did make use of.
 
-Each release branch will also inlude the `config.json` file that was used to deploy the `polkadot-launch` infra the tests where developed for.
+Each release branch will also inlude the `config.json` file that is used to deploy the `polkadot-launch` infra the tests where developed for.
 
 **Note**: The `master` branch of this repository will be up to date with the last release of the _Westmint<>Westend_ combinantion.
 
 # Set up
-- **In the Polkadot Launch repository**: follow the [installation instructions](https://github.com/paritytech/polkadot-launch)
-- **In this repository**: `yarn`
-
-# How to run
-1. **In the Polkadot Launch repository**: deploy a Parachain<>Relaychain local deployment with `polkadot-launch`. You'll find the config file to use in the root directory of this repository -> `./config.js`
-    ```
-    yarn start config.js
-    ```
-2. **In this repository**: in case you are using a different config file, update `env` file accordingly.
-    ```
-    POLKADOT_LAUNCH_CONFIG_PATH = '<path_to_config_file>'
-    ```
-3. Once the _Parachain_ is producing blocks:
-    ```
-    yarn test
-    ```
+- Include the `polkadot` and `polkadot-collator` binaries under the `./bin` folder
+- `yarn`
 # Tests
-To run all tests: `yarn test`
+- To run all tests: `yarn polkadot-launch:test`
+
+- To run individual tests:
+    1. `yarn polkadot-launch`
+    2. When the Parachain is producing blocks -> Run a specific test from the list below
 
 Implemented tests:
 
