@@ -1,7 +1,7 @@
 {
 	"relaychain": {
 		"bin": "./bin/polkadot",
-		"chain": "westend-local",
+		"chain": "kusama-local",
 		"nodes": [
 			{
 				"name": "alice",
@@ -31,8 +31,7 @@
 		{
 			"bin": "./bin/polkadot-collator",
 			"id": "1000",
-			"balance": "1000000000000000000000",
-      "chain": "westmint-local",
+      "chain": "statemine-local",
 			"nodes": [
 				{
 					"wsPort": 9988,
