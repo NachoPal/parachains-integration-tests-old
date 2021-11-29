@@ -1,5 +1,5 @@
 export * from './connectToProviders'
-export * from './getAccounts'
+// export * from './getAccounts'
 export * from './getApiConnection'
 export * from './getApisFromRelays'
 export * from './getBalance'

@@ -1,10 +1,9 @@
-require('dotenv').config()
 import { resolve } from "path";
 import fs from "fs";
 import { LaunchConfig } from "../interfaces/launchConfig";
 
 export const getLaunchConfig = () => {
-  const config_file = process.env.POLKADOT_LAUNCH_CONFIG_PATH
+  const config_file = './config.json'
 
   if (!config_file) {
     console.error("Missing config file argument...");
