@@ -11,10 +11,10 @@ release-<parachain_name>-<parachain_version>-<relaychain_name>-<relaychain_versi
 ```
 
 For example: `release-westmint-v6-westend-v0.9.13` is telling us that:
-- `polkadot-v0.9.13` from [Cumulus](https://github.com/paritytech/cumulus/tree/polkadot-v0.9.13)
+- `release-v0.9.13` from [Polkadot](https://github.com/paritytech/polkadot/tree/release-v0.9.13)
 - `release-statemine-v6` from [Cumulus](https://github.com/paritytech/cumulus/tree/release-statemine-v6)
 
-releases were used to build the binaries that `polkadot-launch` did make use of.
+releases were used to build the `polkadot` (Relay Chain) and `polkadot-collator` (Parachain) binaries
 
 Each release branch will also inlude the `config.json` file that is used to deploy the `polkadot-launch` infra the tests where developed for.
 
