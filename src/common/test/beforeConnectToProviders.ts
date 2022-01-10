@@ -6,7 +6,7 @@ import {
   getApisFromRelays
 } from '../../common';
 
-const waitForParachainToProduceBlocks = async (api): Promise<void> => {
+export const waitForParachainToProduceBlocks = async (api): Promise<void> => {
   return new Promise(async resolve => {
     const unsubHeads = await api.rpc.chain.subscribeNewHeads((lastHeader) => {
       if (lastHeader.number >= 1) {
