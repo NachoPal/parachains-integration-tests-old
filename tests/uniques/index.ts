@@ -14,7 +14,7 @@ const SENDER_RELAY = "//Alice"
 const RECEIVER_PARA = "//Bob"
 const SENDER_PARA = "//Alice"
 const RECEIVER_RELAY = "//Bob"
-const ADMIN = '//Charlie'
+const ADMIN = '//Eve'
 const UNIQUE_INSTANCE = 1
 
 describe('Uniques', () => {

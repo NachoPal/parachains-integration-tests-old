@@ -5,7 +5,8 @@ const BN = require('bn.js');
 chai.use(require('chai-bn')(BN));
 import {
   getBalance,
-  getLaunchConfig
+  getLaunchConfig,
+  buildEncodedCall
 } from '../../src/common'
 import { 
   dmpQueue,
@@ -20,7 +21,7 @@ import {
   beforeConnectToProviders,
   sleep
 } from "../../src/common/test"
-import { u8aToHex, numberToHex } from '@polkadot/util'
+import { numberToHex } from '@polkadot/util'
 
 const AMOUNT = 1000000000
 const SENDER_RELAY = "//Alice"
@@ -66,7 +67,7 @@ describe('Send - Transact', () => {
         
         // Call to be dispatch in the Parachain -> Transfer AMOUNT Balance to SENDER_PARA
         let call = this.paraSourceApi.tx.balances.transfer(this.receiverPara.address, AMOUNT)
-        this.encodedCall = u8aToHex((await call).toU8a().slice(2))
+        this.encodedCall = await buildEncodedCall(call);
         // We make sure the balance is updated before testing
         await sleep(MS_WAIT_FOR_UPDATE)
       })
@@ -125,7 +126,7 @@ describe('Send - Transact', () => {
         let random = Math.floor((Math.random() * 100) + 1);
         this.storageValue = numberToHex(random, 32)
         let call = this.paraSourceApi.tx.system.setStorage([[STORAGE_KEY, this.storageValue]])
-        this.encodedCall = u8aToHex((await call).toU8a().slice(2))
+        this.encodedCall = await buildEncodedCall(call);
       })
 
       it(
@@ -166,7 +167,7 @@ describe('Send - Transact', () => {
       let random = Math.floor((Math.random() * 100) + 1);
       this.storageValue = numberToHex(random, 32)
       let call = this.paraSourceApi.tx.system.setStorage([[STORAGE_KEY, this.storageValue]])
-      this.encodedCall = u8aToHex((await call).toU8a().slice(2))
+      this.encodedCall = await buildEncodedCall(call);
     })
 
     it(
