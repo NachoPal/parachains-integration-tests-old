@@ -37,9 +37,10 @@ describe('Limited Teleport Assets', () => {
     }  
   )
 
-  before(function () {
-    let config = getLaunchConfig()
-    this.paraId = config.parachains[0].id
+  before(async function () {
+    // let config = getLaunchConfig()
+    // this.paraId = config.parachains[0].id
+    this.paraId = await this.paraSourceApi.query.parachainInfo.parachainId();
   })
 
   describe('DMP', async () => {
